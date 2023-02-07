@@ -1,0 +1,45 @@
+{
+    "organization": "AusSRC",
+    "website": "https://aussrc.org.au",
+    "endpoints":{
+        "https://projects.pawsey.org.au":{
+            "projects":{
+                "ja3":
+                {
+                    "access": "*******************************",
+                    "secret": "*******************************",
+                    "quota": "100TB",
+                    "bucket":{
+                        "aussrc": {
+                            "download_urls":{
+                                "flash/linefinder.sif": "*******************************",
+                                "flash/setonix_scripts.tar.gz": "*******************************"
+                            },
+                            "upload_urls": {
+                                "HELP":"Entries here must be the same as the 'key' field in the provided Dict string, as per below",
+                                "flash/example_data/spectral_plots_gt_03.tar.gz":"{'url': 'https://projects.pawsey.org.au/aussrc', 'fields': {'key': 'flash/example_data/spectral_plots_gt_03.tar.gz', 'AWSAccessKeyId': '*******************************', 'policy': '*********************************************************************************************', 'signature': '*******************************'}}"
+                            }
+
+                        }
+                    }
+                },
+                "ger063":
+                {
+                    "access": "*******************************",
+                    "secret": "*******************************",
+                    "quota": "100GB"
+                }
+            }
+        },
+        "https://nimbus.pawsey.org.au:8080":{
+            "projects":{
+                "ger063":
+                {
+                    "access": "********************************",
+                    "secret": "********************************",
+                    "quota": "10GB"
+                }
+            }
+        }
+    }
+}
