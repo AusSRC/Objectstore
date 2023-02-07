@@ -20,12 +20,12 @@ import numpy as np
 import boto3
 import json
 try:
-    import objectstore
-    from objectstore.get_access_keys import *
-    from objectstore.S3Object import S3Object
-    from objectstore.URLObject import UrlObject
-    from objectstore.FITSheader import FITSheaderFromURL
-    from objectstore.FITSheader import FITSheaderFromS3
+    import ObjStore
+    from ObjStore.get_access_keys import *
+    from ObjStore.S3Object import S3Object
+    from ObjStore.URLObject import UrlObject
+    from ObjStore.FITSheader import FITSheaderFromURL
+    from ObjStore.FITSheader import FITSheaderFromS3
 except ModuleNotFoundError:
     from get_access_keys import *
     from S3Object import S3Object

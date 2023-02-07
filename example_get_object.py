@@ -7,10 +7,10 @@ import os
 import sys
 import json
 try:
-    import objectstore
-    import objectstore.S3Object as S3
-    import objectstore.URLObject as URL
-    from objectstore.get_access_keys import *
+    import ObjStore
+    import ObjStore.S3Object as S3
+    import ObjStore.URLObject as URL
+    from ObjStore.get_access_keys import *
 except ModuleNotFoundError:
     import S3Object as S3
     import URLObject as URL

@@ -1,7 +1,7 @@
 import boto3
 try:
-    import objectstore
-    from iobjectstore.get_access_keys import *
+    import ObjStore
+    from ObjStore.get_access_keys import *
 except ModuleNotFoundError:
     from get_access_keys import *
 
