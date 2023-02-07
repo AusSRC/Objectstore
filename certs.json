@@ -12,8 +12,8 @@
                     "bucket":{
                         "aussrc": {
                             "download_urls":{
-                                "flash/linefinder.sif": "*******************************",
-                                "flash/setonix_scripts.tar.gz": "*******************************"
+                                "flash/linefinder.sif": "https://*******************************",
+                                "flash/setonix_scripts.tar.gz": "https://*******************************"
                             },
                             "upload_urls": {
                                 "HELP":"Entries here must be the same as the 'key' field in the provided Dict string, as per below",
