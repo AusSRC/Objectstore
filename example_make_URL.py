@@ -15,9 +15,9 @@ bucket = "aussrc"
 # object in the object store that we want
 key = "flash/pilot2_outputs/SB33616_output_plots_and_ascii.tar.gz"                     
 # File holding access id's for objectstore
-my_certs_file = "my_certs.json"                  
+certfile = "my_certs.json"                  
 
-(access_id,secret_id,quota) = get_access_keys(my_certs_file,endpoint,project)
+(access_id,secret_id,quota) = get_access_keys(certfile,endpoint,project)
 
 client = boto3.client(service_name='s3',aws_access_key_id=access_id,aws_secret_access_key=secret_id, endpoint_url=endpoint)
 

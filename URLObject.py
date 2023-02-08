@@ -11,14 +11,19 @@ if not path in sys.path:
     sys.path.append(path)
 
 
-from ObjStore import *
 import boto3
 from boto3.s3.transfer import TransferConfig
 import urllib3.request
-from FITSheader import *
-from get_access_keys import *
 import requests
 
+try:
+    from ObjStore.ObjStore import *
+    from ObjStore.FITSheader import *
+    from ObjStore.get_access_keys import *
+except ModuleNotFoundError:
+    from ObjStore import *
+    from FITSheader import *
+    from get_access_keys import *
 
 ########################################################################################
 #

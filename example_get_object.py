@@ -21,7 +21,7 @@ obj = None
 my_object = None
 
 # Required variables for storage to Acacia objectstore
-certfile = "certs.json"
+certfile = "my_certs.json"
 endpoint = "https://projects.pawsey.org.au"
 project = "ja3"
 

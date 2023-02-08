@@ -25,8 +25,12 @@ path = os.path.abspath(os.path.dirname(__file__))
 if not path in sys.path:
     sys.path.append(path)
 
-from ObjStore import *
-from FITSheader import *
+try:
+    from ObjStore.ObjStore import *
+    from ObjStore.FITSheader import *
+except ModuleNotFoundError:
+    from ObjStore import *
+    from FITSheader import *
 
 PID = os.getpid()
 
