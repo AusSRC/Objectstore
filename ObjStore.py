@@ -252,7 +252,7 @@ class FitsObjStore:
         header = hdr.getHeaderDict()
         hdrstr = hdr.rawHdrData().decode() 
         self.hdrsize = hdr.len()
-        print(f"header size = {self.hdrsize}")
+        print(f"header size = {self.hdrsize}",flush=True)
 
         self.xsize = int(header["NAXIS1"])
         self.ysize = int(header["NAXIS2"])
@@ -274,13 +274,13 @@ class FitsObjStore:
         # Calc number of reads
         extra_batch = int(self.zlen % batch)
         num_reads = int(self.zlen // batch)
-        print("%s reads of channels in batches of %s" % (num_reads,batch))
+        print("%s reads of channels in batches of %s" % (num_reads,batch),flush=True)
 
         # Define tasks
         for i in range(num_reads):
             tasks.append([batch,i])
         if extra_batch > 0:
-            print("Plus final read of %s" % extra_batch)
+            print("Plus final read of %s" % extra_batch,flush=True)
             tasks.append([extra_batch,len(tasks)])
 
         # Sanity check - num_threads should not be greater than the number of tasks, or the number of available threads!
