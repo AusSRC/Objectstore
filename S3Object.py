@@ -97,6 +97,17 @@ class S3Object(FitsObjStore):
         self.threshold = threshold
         self.chunksize = chunksize
         self.threads = threads
+
+    def setVersioning(self):
+        versioning = self.resource.BucketVersioning(self.bucket)
+        versioning.enable()
+
+    def suspendVersioning(self):
+        versioning = self.resource.BucketVersioning(self.bucket)
+        try:
+            versioning.suspend()
+        except:
+            pass 
         
     def uploadFile(self,path,filename,progress=True,content_type="binary/octet-stream"):
         ''' Upload file to object store. If larger than 4G, this will 'chunk'
