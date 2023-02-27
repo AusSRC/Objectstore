@@ -133,8 +133,9 @@ class FitsObjStore:
     def getChannelBatches(self,xmin,xmax,ymin,ymax,zmin,zmax,ch_nums,i):
         ''' Strategy 2 - see getPartitionData() '''
         # Calc pos of start and size of channel
+        start_ch = zmin + (ch_nums*i)
         readsize = self.chsize*FITS_FLOAT_SIZE*ch_nums
-        startpos = self.hdrsize + ((zmin+ch_nums*i)*self.chsize*FITS_FLOAT_SIZE)
+        startpos = self.hdrsize + (start_ch*self.chsize*FITS_FLOAT_SIZE)
         # Get all the data in this set of channels
         # read all the data (ch_nums channels)
         chdata = self.readData(startpos,readsize)
@@ -151,7 +152,7 @@ class FitsObjStore:
             data = np.concatenate((data,self.__extractDataFromChannel(chdata[start:end],xmin,xmax,ymin,ymax)),axis=0)
             start += (self.chsize)
             end += (self.chsize)
-        print(f"Read {i+1}: ch = {self.chsize*FITS_FLOAT_SIZE} bytes per ch, {ch_nums} channels started at byte {startpos}",flush=True)
+        print(f"Read {i+1}: ch {start_ch} = {self.chsize*FITS_FLOAT_SIZE} bytes per ch, {ch_nums} channels started at byte {startpos}",flush=True)
         return data
 
     def getChannelByRow(self,xmin,xmax,ymin,ymax,zmin,zmax,ch_num):
