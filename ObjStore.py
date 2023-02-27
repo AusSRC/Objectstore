@@ -151,7 +151,7 @@ class FitsObjStore:
             data = np.concatenate((data,self.__extractDataFromChannel(chdata[start:end],xmin,xmax,ymin,ymax)),axis=0)
             start += (self.chsize)
             end += (self.chsize)
-        print(f"Read {i+1}: ch = {self.chsize*FITS_FLOAT_SIZE} bytes per ch, {ch_nums} channels started at byte {startpos}")
+        print(f"Read {i+1}: ch = {self.chsize*FITS_FLOAT_SIZE} bytes per ch, {ch_nums} channels started at byte {startpos}",flush=True)
         return data
 
     def getChannelByRow(self,xmin,xmax,ymin,ymax,zmin,zmax,ch_num):
@@ -205,19 +205,19 @@ class FitsObjStore:
             self.zsize = int(header["NAXIS4"])
 
         # Process each required channel in the datacube, depending on selected strategy:
-        print("Reading %s channels from datacube" % self.zlen)
+        print("Reading %s channels from datacube" % self.zlen,flush=True)
         if strategy == 1:
             data = self.getWholeChannel(xmin,xmax,ymin,ymax,zmin,zmax,0)
             for i in range(self.zlen-1):
                 data = np.concatenate((data,self.getWholeChannel(xmin,xmax,ymin,ymax,zmin,zmax,i)),axis=0)
                 if i % 10 == 0:
-                    print("Got channel %s data" % (i+zmin+1))
+                    print("Got channel %s data" % (i+zmin+1),flush=True)
         elif strategy == 3:
             data = self.getChannelByRow(xmin,xmax,ymin,ymax,zmin,zmax,0)
             for i in range(self.zlen-1):
                 data = np.concatenate((data,self.getChannelByRow(xmin,xmax,ymin,ymax,zmin,zmax,i+1)),axis=0)
                 if i % 10 == 0:
-                    print("Got channel %s data" % (i+zmin+1))
+                    print("Got channel %s data" % (i+zmin+1),flush=True)
         else:
             # STRATEGY 2
             READ_LIMIT = ONE_G_9
@@ -289,7 +289,7 @@ class FitsObjStore:
         num_threads = max_threads if (num_threads > max_threads) else num_threads
 
         pool = mp.pool.ThreadPool(processes=num_threads)
-        print("Thread pool created: ",num_threads)
+        print(f"Thread pool created: {num_threads}",flush=True)
         result_objs = []
         for task in tasks:
             r = pool.apply_async(self.getChannelBatches,(xmin,xmax,ymin,ymax,zmin,zmax,task[0],task[1]))
