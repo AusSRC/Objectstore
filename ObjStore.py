@@ -96,6 +96,19 @@ class FitsObjStore:
     def unsetDebugFlag(self):
         self.DEBUG = False
 
+    def getObjectHeaders(self,filtered='FITS'):
+        response = self.client.head_object(Bucket = self.bucket, Key = self.obj)['ResponseMetadata']['HTTPHeaders']
+        flatdict = {}
+        if filtered == 'FITS':
+            for key in response['ResponseMetadata']['HTTPHeaders']:
+                if key.startswith('x-amz-meta-'):
+                    newkey = key.split('x-amz-meta-')[1].upper()
+                    flatdict[newkey] = response['ResponseMetadata']['HTTPHeaders'][key]
+            return flatdict
+        else:
+            return response
+        
+
     def readWholeObject(self):
         ''' Just return the whole object as stored in the objectstore '''
         obj_content = None

@@ -6,29 +6,33 @@
 import os
 import sys
 import json
+from astropy.io import fits
+
 try:
     import ObjStore
     import ObjStore.S3Object as S3
     import ObjStore.URLObject as URL
+    from ObjStore.FITSheader import *
     from ObjStore.get_access_keys import *
 except ModuleNotFoundError:
     import S3Object as S3
     import URLObject as URL
+    from FITSheader import *
     from get_access_keys import *
 # Required variables for storage to Acacia objectstore
 endpoint = "https://projects.pawsey.org.au"
 project = "ja3"
 bucket = "aussrc"
-certfile = "my_certs.json"
+certfile = "../my_certs.json"
 
 USEURL = False
 obj = None
 
     # The path to the directory holding the file we want to upload is defined in the local filesystem by 'localpath':
-localpath = "/home/ger063/src/flash_data"
+localpath = "/home/ger063/src/acacia"
     #
     # 'keyname' is the same as the filename on the local system
-keyname = "example_plot.png"
+keyname = "sofia_test_datacube.fits"
     #
     # The object it will become on the objectstore is:
     #       project + '/' + bucket + '/' + storepath + '/' + keyname
@@ -37,9 +41,19 @@ keyname = "example_plot.png"
     # but you often want to mimic that construct. So 'storepath' is just a string made to look
     # like a subdirectory path, eg "myPretendDirectory/myPretendSubdirectory"
 storepath = "flash/example_data"
+storepath = ""
 
     # Create an S3 object name:
-objname = storepath+'/'+keyname
+if storepath:
+    objname = storepath+'/'+keyname
+else:
+    objname = keyname
+
+    # Get the FITS header from file
+    hdr = FITSheaderFromFile(localpath+'/'+keyname)
+    hdrdict = hdr.convert2dict()
+    # Add data type to header
+    hdrdict["ContentType"] = "binary/octet-stream"
 
     # Get the project access keys from the json certs file, assuming you have them:
 if not USEURL:
@@ -51,7 +65,7 @@ if not USEURL:
     #obj.setConfig(file_thresholdsize, file_chunksize, num_threads)
 
     # Upload to store - files larger than 5G will be 'chunked' - for batch jobs, set progress=False
-    obj.uploadFile(localpath,keyname,progress=True)
+    obj.uploadFile(localpath,keyname,ExtraArgs=hdrdict,progress=True)
 else:
     # Alternative upload using an upload dictionary with a presigned URL.
     obj = URL.UrlObject()

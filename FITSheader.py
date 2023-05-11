@@ -1,6 +1,7 @@
 import sys
 import requests
 import boto3
+from astropy.io import fits
 
 ENDHEADER = b'END          '
 FITS_HEADER_BLOCK_SIZE = 2880
@@ -11,6 +12,23 @@ FITS_HEADER_KEY_SIZE     = 10
 FITS_HEADER_VALUE_SIZE   = 70
 FITS_HEADER_FIXED_WIDTH  = 20
 FITS_FLOAT_SIZE = 4
+
+########################################################################################
+############################### CLASS FITSheaderFromS3 ################################
+########################################################################################
+class FITSheaderFromFile:
+    '''Class to get and modify header from a fits file on the local filesystem using astropy '''
+
+    def __init__(self,filepath):
+        self.hdul = fits.open(filepath)
+
+    def convert2dict(self):
+        flatdict = {"Metadata":{}}
+        tmphdr = self.hdul[0].header
+        for key in self.hdul[0].header:
+            strval = str(self.hdul[0].header[key])
+            flatdict["Metadata"][key] = strval
+        return flatdict
 
 ########################################################################################
 ############################### CLASS FITSheaderFromS3 ################################

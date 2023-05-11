@@ -109,7 +109,7 @@ class S3Object(FitsObjStore):
         except:
             pass 
         
-    def uploadFile(self,path,filename,progress=True,content_type="binary/octet-stream"):
+    def uploadFile(self,path,filename,ExtraArgs={"ContentType":"binary/octet-stream"},progress=True):
         ''' Upload file to object store. If larger than 4G, this will 'chunk'
             the file into 'chunksize' bits and upload them in parallel.
             This will overwrite the original object!
@@ -118,9 +118,9 @@ class S3Object(FitsObjStore):
         config = TransferConfig(multipart_threshold=self.threshold, max_concurrency=self.threads, multipart_chunksize=self.chunksize, use_threads=True)
         myfile = path + '/' + filename
         if progress:
-            self.client.upload_file(myfile,self.bucket,self.obj,ExtraArgs={'ContentType':content_type},Config=config,Callback=ProgressPercentage(myfile))
+            self.client.upload_file(myfile,self.bucket,self.obj,ExtraArgs=ExtraArgs,Config=config,Callback=ProgressPercentage(myfile))
         else:
-            self.client.upload_file(myfile,self.bucket,self.obj,ExtraArgs={'ContentType':content_type},Config=config)
+            self.client.upload_file(myfile,self.bucket,self.obj,ExtraArgs=ExtraArgs,Config=config)
 
     def getObject(self):
         ''' Return the object (or a part of it in bytes) to caller '''
