@@ -49,9 +49,11 @@ if storepath:
 else:
     objname = keyname
 
-    # Get the FITS header from file
+    hdrdict = {}
+    # If we're storing a FITS file, get the FITS header from file
     hdr = FITSheaderFromFile(localpath+'/'+keyname)
     hdrdict = hdr.convert2dict()
+
     # Add data type to header
     hdrdict["ContentType"] = "binary/octet-stream"
 

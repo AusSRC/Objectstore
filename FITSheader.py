@@ -20,15 +20,23 @@ class FITSheaderFromFile:
     '''Class to get and modify header from a fits file on the local filesystem using astropy '''
 
     def __init__(self,filepath):
-        self.hdul = fits.open(filepath)
+        try:
+            self.hdul = fits.open(filepath)
+        except OSError:
+            self.hdul = None
 
-    def convert2dict(self):
-        flatdict = {"Metadata":{}}
-        tmphdr = self.hdul[0].header
-        for key in self.hdul[0].header:
-            strval = str(self.hdul[0].header[key])
-            flatdict["Metadata"][key] = strval
-        return flatdict
+    def convert2dict(self,hdrpos=0):
+        ''' Get the FITS header (by default the primary, hdul=0 one) from the file and 
+            convert to a flattened dictionary of strings.
+        '''
+        if self.hdul:
+            flatdict = {"Metadata":{}}
+            tmphdr = self.hdul[hdrpos].header
+            for key in self.hdul[hdrpos].header:
+                strval = str(self.hdul[hdrpos].header[key])
+                flatdict["Metadata"][key] = strval
+            return flatdict
+        return {}
 
 ########################################################################################
 ############################### CLASS FITSheaderFromS3 ################################

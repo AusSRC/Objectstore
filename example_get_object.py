@@ -36,7 +36,7 @@ if not USEURL:
     my_object = obj.getObject()
 else:
     bucket = "aussrc"
-    key = "flash/setonix_scripts.tar.gz"
+    key = "flash/linefinder_scripts.tar.gz"
     localpath = "./test.tar.gz"
     url = get_download_URL(certfile,endpoint,project,bucket,key)
 
