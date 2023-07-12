@@ -1,4 +1,5 @@
 import boto3
+import sys
 try:
     import ObjStore
     from ObjStore.get_access_keys import *
@@ -6,16 +7,17 @@ except ModuleNotFoundError:
     from get_access_keys import *
 
 
+# object in the object store that we want - this is relative to the bucket name, defined below
+key = f"{sys.argv[1]}"
+
 # objectstore address
 endpoint = 'https://projects.pawsey.org.au'      
 # objectstore account name
 project = 'ja3'                                  
 # bucket in the objectstore that holds our object
 bucket = "aussrc"                                   
-# object in the object store that we want
-key = "flash/pilot2_outputs/SB33616_output_plots_and_ascii.tar.gz"                     
 # File holding access id's for objectstore
-certfile = "my_certs.json"                  
+certfile = "../my_certs.json"                  
 
 (access_id,secret_id,quota) = get_access_keys(certfile,endpoint,project)
 
