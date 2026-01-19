@@ -38,7 +38,7 @@ endpoint = 'https://projects.pawsey.org.au'        # objectstore address
 project = 'ja3'                                    # objectstore account name
 bucket = "dc2"                                     # bucket in the objectstore that holds our object
 key = 'sky_full_v2.fits'                           # object in the object store that we want
-certfile = "my_certs.json"       # File holding access id's for objectstore
+certfile = "~/my_certs.json"       # File holding access id's for objectstore
 NUM_THREADS = 6                                    # Use threading for speedup
 
 hdr = None

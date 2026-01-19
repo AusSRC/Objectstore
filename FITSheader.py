@@ -14,7 +14,7 @@ FITS_HEADER_FIXED_WIDTH  = 20
 FITS_FLOAT_SIZE = 4
 
 ########################################################################################
-############################### CLASS FITSheaderFromS3 ################################
+############################### CLASS FITSheaderFromFile ###############################
 ########################################################################################
 class FITSheaderFromFile:
     '''Class to get and modify header from a fits file on the local filesystem using astropy '''

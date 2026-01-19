@@ -29,10 +29,10 @@ USEURL = False
 obj = None
 
     # The path to the directory holding the file we want to upload is defined in the local filesystem by 'localpath':
-localpath = "/home/ger063/src/acacia"
+localpath = "/home/ger063/src/FLASH/spectral_plot"
     #
     # 'keyname' is the same as the filename on the local system
-keyname = "sofia_test_datacube.fits"
+keyname = "spectral_plot.sif"
     #
     # The object it will become on the objectstore is:
     #       project + '/' + bucket + '/' + storepath + '/' + keyname
@@ -40,7 +40,7 @@ keyname = "sofia_test_datacube.fits"
     # The 'storepath' complication is added because you can't have buckets within buckets,
     # but you often want to mimic that construct. So 'storepath' is just a string made to look
     # like a subdirectory path, eg "myPretendDirectory/myPretendSubdirectory"
-storepath = "flash/example_data"
+storepath = "aussrc/flash"
 storepath = ""
 
     # Create an S3 object name:

@@ -25,7 +25,8 @@ client = boto3.client(service_name='s3',aws_access_key_id=access_id,aws_secret_a
 
 # Expiry date from now (in sec)
 expiry = 8640000 #(10 days)
-expiry = 31536000 #(1 year)
+expiry = 315360000 # 10 years
+#expiry = 31536000 #(1 year)
 
 url = client.generate_presigned_url( ClientMethod='get_object', Params={ 'Bucket': bucket, 'Key': key}, ExpiresIn=expiry)
 
